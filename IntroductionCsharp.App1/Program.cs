@@ -10,18 +10,53 @@ Console.WriteLine($"Bonjour {saisie}");
 
 Random random = new Random();
 
-// Je génère un nombre aléatoire entre 0 et 10
-int nombreSecret = random.Next(0, 10);
+Console.WriteLine("Quel niveau souhaitez-vous ? Facile, Intermédiaire, Difficile");
 
-//Console.WriteLine("Devine le nombre que j'ai généré ?");
+string? choixUtilisateur = null;
+bool correctChoice = false;
+int minValue = 0;
+int maxValue = 0;
+int pointVie = 5;
 
-string? nombreChoisi = null;  //Console.ReadLine();
+while (!correctChoice)
+{
+    choixUtilisateur = Console.ReadLine();
+    switch (choixUtilisateur)
+    {
+        case "Facile":
+            correctChoice = true;
+            minValue = 0;
+            maxValue = 5;
+            pointVie = 5;
+            break;
+        case "Intermédiaire":
+            correctChoice = true;
+            minValue = 0;
+            maxValue = 10;
+            pointVie = 5;
+            break;
+        case "Difficile":
+            correctChoice = true;
+            minValue = 0;
+            maxValue = 10;
+            pointVie = 3;
+            break;
+        default:
+            //Cas général
+            Console.WriteLine("Saisie incorrecte, ressaisissez :(Facile, Intermédiaire, Difficile)");
+            break;
+    }
+}
 
-int nombreChoisiEntier = -1; // int.Parse(nombreChoisi);
+// Je génère un nombre aléatoire entre minValue et maxValue
+int nombreSecret = random.Next(minValue, maxValue);
+
+string? nombreChoisi = null;  
+
+int nombreChoisiEntier = -1; 
 
 // booléen de vérification de fin de jeu
 bool isFinished = false;
-int pointVie = 5;
 
 
 // boucle du jeu
@@ -43,10 +78,12 @@ while (!isFinished)
         {
             Console.WriteLine($"T'es un looser, c'était {nombreSecret}");
             isFinished = true;
-        }
+        } 
         else
         {
+            string plusOuMoins = (nombreChoisiEntier >= nombreSecret) ? "inférieur" : "supérieur";
             Console.WriteLine($"Try again, il te reste {pointVie} points de vie");
+            Console.WriteLine($"Petit indice, le nombre secret est {plusOuMoins}");
         }
     }
 }
