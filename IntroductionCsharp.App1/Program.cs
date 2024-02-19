@@ -64,7 +64,21 @@ while (!isFinished)
 {
     Console.WriteLine("Devine le nombre que j'ai généré ?");
     nombreChoisi = Console.ReadLine();
-    nombreChoisiEntier = int.Parse(nombreChoisi);
+    // Solution 1 : On essaye, et on passe dans le catch si on a une erreur.
+    try
+    {
+        nombreChoisiEntier = int.Parse(nombreChoisi);
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine("Ceci n'est pas un nombre !" + ex.Message);
+    }
+    /*
+    do
+    {
+        nombreChoisi = Console.ReadLine();
+    } while (int.TryParse(nombreChoisi, out nombreChoisiEntier));
+    */
 
     if (nombreChoisiEntier == nombreSecret)
     {
