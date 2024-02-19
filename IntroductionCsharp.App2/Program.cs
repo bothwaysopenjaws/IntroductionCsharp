@@ -1,11 +1,13 @@
 ﻿
 
+using IntroductionCsharp.App2.Model;
+
 internal class Program
 {
     /// <summary>
     /// Liste des membres de la classe
     /// </summary>
-    internal static List<string> classMember = new List<string>();
+    internal static List<ClassMember> classMember = new List<ClassMember>();
 
     /// <summary>
     /// Point d'entrée de l'application
@@ -62,6 +64,31 @@ internal class Program
     /// <summary>
     /// Supprime un member
     /// </summary>
+    /// 
+    private static void Supprimer()
+    {
+        ClassMember? selectedClassMember = null;
+        do
+        {
+            Console.WriteLine("Indiquer le nom de la personne à supprimer");
+            string? searchLastName = Console.ReadLine();
+            Console.WriteLine("Indiquer le prénom de la personne à supprimer");
+            string? searchFirstName = Console.ReadLine();
+
+            selectedClassMember = null;
+
+            foreach (ClassMember classmate in classMember)
+            {
+                if (classmate.FirstName == searchFirstName && classmate.LastName == searchLastName)
+                {
+                    selectedClassMember = classmate;
+                }
+            }
+        } while (selectedClassMember == null);
+        classMember.Remove(selectedClassMember);
+
+    }
+    /*
     private static void Supprimer()
     {
         Console.WriteLine("Indiquer le nom et prénom de la personne à supprimer");
@@ -80,12 +107,40 @@ internal class Program
             }
         }
         classMember.Remove(userInput);
-    }
+    }*/
 
     /// <summary>
     /// Modifie un membre
     /// </summary>
     private static void Modifier()
+    {
+        ClassMember? selectedClassMember = null;
+        do
+        {
+            Console.WriteLine("Indiquer le nom de la personne à modifier");
+            string? searchLastName = Console.ReadLine();
+            Console.WriteLine("Indiquer le prénom de la personne à modifier");
+            string? searchFirstName = Console.ReadLine();
+
+            selectedClassMember = null;
+
+            foreach (ClassMember classmate in classMember)
+            {
+                if (classmate.FirstName == searchFirstName && classmate.LastName == searchLastName)
+                {
+                    selectedClassMember = classmate;
+                }
+            }
+        } while (selectedClassMember == null);
+
+        Console.WriteLine("Indiquez le nouveau nom de la personne");
+        selectedClassMember.LastName = Console.ReadLine() ?? "non renseigné";
+        Console.WriteLine("Indiquez le nouveau prénom de la personne");
+        selectedClassMember.FirstName = Console.ReadLine() ?? "non renseigné";
+    }
+
+    /*
+    private static void ModifierOld()
     {
         Console.WriteLine("Indiquer le nom et prénom de la personne à modifier");
         bool isIncorrect = true;
@@ -106,7 +161,7 @@ internal class Program
         string newName = Console.ReadLine();
         classMember.Remove(userInput);
         classMember.Add(newName);
-    }
+    }*/
 
     /// <summary>
     /// Lister les membres de la classe
@@ -115,9 +170,9 @@ internal class Program
     {
         Console.WriteLine("Liste des membres : ");
 
-        foreach (string name in classMember)
+        foreach (ClassMember classmate in classMember)
         {
-            Console.WriteLine($" -> {name}");
+            Console.WriteLine($" -> {classmate.FullName}");
         }
     }
 
@@ -126,9 +181,14 @@ internal class Program
     /// </summary>
     private static void AddClassMember()
     {
-        Console.WriteLine("Indiquez le nom et le prénom de la personne à ajouter");
-        string? userInput = Console.ReadLine();
+        Console.WriteLine("Indiquez le nom de la personne à ajouter");
+        string? userInputLastName = Console.ReadLine() ?? "";
+
+        Console.WriteLine("Indiquez le prénom de la personne à ajouter");
+        string? userInputFirstName = Console.ReadLine() ?? "";
+
+        ClassMember classmate = new ClassMember(userInputLastName, userInputFirstName);
         // On ajoute userInput à la fin de notre liste.
-        classMember.Add(userInput ?? "Inconnu");
+        classMember.Add(classmate);
     }
 }
