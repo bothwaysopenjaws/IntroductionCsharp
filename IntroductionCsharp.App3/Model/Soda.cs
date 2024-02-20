@@ -28,4 +28,10 @@ internal class Soda : Beverage
     {
         CaffeineRate = caffeineRate;
     }
+
+    /// <summary>
+    /// Donne les informations sur la bière
+    /// </summary>
+    /// <returns></returns>
+    public override string ToString() => "[SODA] > " + base.ToString();
 }

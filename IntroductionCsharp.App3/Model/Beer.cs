@@ -27,4 +27,10 @@ internal class Beer : Beverage
     /// Degré d'alcool
     /// </summary>
     public double PercentAlcohol { get; set; }
+
+    /// <summary>
+    /// Donne les informations sur la bière
+    /// </summary>
+    /// <returns></returns>
+    public override string ToString() => "[BIERE] > " + base.ToString();
 }
