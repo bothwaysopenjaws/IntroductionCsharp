@@ -20,4 +20,6 @@ internal class Brand
     /// Liste des boissons
     /// </summary>
     public List<Beverage> Beverages { get; set; }
+
+    public Brand() => Beverages = new List<Beverage>();
 }
